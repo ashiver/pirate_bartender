@@ -18,15 +18,20 @@ ingredients = {
     "fruity": ["slice of orange", "dash of cassis", "cherry on top"]
 }
 
+# Lists
+adjectives = ["Mighty", "Stinky", "Strange", "Upside-down", "Inside-out", "Tasty", "Outrageous", "Wonky", "Angry"]
+
+nouns = ["Bulldog", "Pelican", "Whale", "Canon Ball", "Peg Leg", "Prisoner", "Skalawag", "Ghost"]
+
 
 def question():
     """Asks user for preferences, maps answers to Boolean values in preferences dictionary; returns preferences"""
-    preferences = questions
+    preferences = {}
     for k in questions:
         answer = raw_input(questions[k])
-        if answer.lower() == "yes" or answer.lower() == "y":
+        if answer.lower() in ("yes","y"):
             preferences[k] = True
-        elif answer.lower() == "no" or answer.lower() == "n":
+        elif answer.lower() in ("no","n"):
             preferences[k] = False
     return preferences
 
@@ -40,11 +45,26 @@ def mix(preferences):
     return drink
   
   
-  
-if __name__ == '__main__': 
-    print mix(question())
+def name():
+    """Returns a random name for a drink"""
+    return "" + random.choice(adjectives) + " " + random.choice(nouns)
     
-        
-                                                       
-                                                       
-                                                       
+  
+def main():
+    """Mixes a drink, names it, and serves it"""
+    user = raw_input("What be ye name, sailor?")
+    while True:
+        answer = raw_input("Can I get ye a drink, {}?".format(user)).lower()
+        if answer in ("yes", "y"):
+            drink = mix(question())
+            print "Arrrr, I'll mix ye one presently!"
+            print "Behold! I call it a {}. It's made with:".format(name())
+            for ingredient in drink:
+                print "A {}".format(ingredient)
+        else:
+            print "Then scram ye lolly-gagger!"
+            break
+  
+if __name__ == '__main__':
+    main()
+    
